@@ -1,70 +1,103 @@
-# 🛡️ Face Mask Detection (Machine Learning)
+# 🛡️ Face Mask Detection using CNN & OpenCV
 
-A real-time Face Mask Detection system built using **Random Forest Classifier** with **OpenCV** and **scikit-learn**. This project classifies faces as **with mask** 😷 or **without mask** 😐 using webcam input.
+This project uses a **Convolutional Neural Network (CNN)** to detect whether a person is wearing a mask or not in **real-time** via a webcam.  
+The model is trained in **Google Colab**, saved as `.h5`, and then deployed locally using **OpenCV**.
 
-## 📁 Project Structure
+---
+
+## 📌 Features
+- Trained CNN model (`.h5`) for mask detection
+- Real-time face detection using Haar Cascade
+- Color-coded bounding boxes:
+  - 🟢 **Green**: Mask detected
+  - 🔴 **Red**: No mask detected
+- Lightweight & works on CPU
+
+---
+
+## 📂 Project Structure
 ```
-face-mask-detection/
+
+face-mask-detector/
 │
-├── dataset/
-│   ├── with_mask/         # Images with mask
-│   └── without_mask/      # Images without mask
-│
-├── detect_mask_webcam.py  # Webcam-based real-time detection
-├── train_model.py         # Trains Random Forest model
-├── face_mask_model.pkl    # Trained ML model (optional, can be regenerated)
-├── scaler.pkl             # Feature scaler (optional)
-├── requirements.txt       # Dependencies
-└── README.md              # Project overview
-```
+├── face\_mask\_model.h5                   # Trained CNN model
+├── haarcascade\_frontalface\_default.xml   # Haar Cascade file for face detection
+├── detect\_mask.py                        # Python script for webcam detection
+└── README.md                             # Project documentation
+
+````
+
+---
 
 ## ⚙️ Installation
-1. Clone the repository:
+### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/face-mask-detection.git
-cd face-mask-detection
-```
-2. Install dependencies:
+git clone https://github.com/<your-username>/Face-Mask-Detection.git
+cd Face-Mask-Detection
+````
+
+### 2️⃣ Install dependencies
+
 ```bash
-pip install -r requirements.txt
+pip install tensorflow opencv-python numpy
 ```
 
-## 🧠 Training the Model
-Run the following script to train the model on the image dataset:
+---
+
+## ▶️ Usage
+
+### 1️⃣ Run the detection script
+
 ```bash
-python train_model.py
+python detect_mask.py
 ```
-This will create:
-- `face_mask_model.pkl`: the trained Random Forest model  
-- `scaler.pkl`: the fitted feature scaler
 
-## 📷 Real-time Mask Detection
-Use your webcam to test detection in real time:
-```bash
-python detect_mask_webcam.py
-```
-The script opens your webcam and predicts whether the person is wearing a mask.
+### 2️⃣ Controls
 
-## 📈 Accuracy
-- Initial model achieved **~80% accuracy** with Random Forest.
-- Accuracy can be improved using:
-  - CNNs or transfer learning
-  - Data augmentation
-  - Better preprocessing
+* **Press `q`** → Quit the webcam window.
 
-## ✅ Requirements
-- Python 3.7+
-- scikit-learn
-- OpenCV
-- numpy
+---
 
-## 📌 Notes
-- Only a few sample images are included in `dataset/` for demonstration.
-- You can expand the dataset for better accuracy.
-- If `face_mask_model.pkl` or `scaler.pkl` is missing, re-run `train_model.py`.
+## 🧠 Model Details
 
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+* Model: Custom CNN with Conv2D, MaxPooling, Dense layers
+* Input size: **128×128×3**
+* Normalization: Pixel values scaled to **\[0,1]**
+* Labels:
+
+  * `0` → Mask
+  * `1` → No Mask
+
+---
+
+## 📜 How It Works
+
+1. **Face Detection**: OpenCV Haar Cascade detects faces in the webcam feed.
+2. **Preprocessing**: Extracted face is resized to `128×128` and normalized.
+3. **Prediction**: The CNN model classifies it as **Mask** or **No Mask**.
+4. **Display**: The result is shown with a bounding box and label.
+
+---
+
+## 📌 Requirements
+
+* Python 3.7+
+* TensorFlow 2.x
+* OpenCV
+* NumPy
+
+---
+
+## 🏗️ Future Improvements
+
+* Train with more diverse datasets for higher accuracy
+* Use MobileNetV2 for better performance on low-end devices
+* Deploy as a web or mobile application
+
+---
 
 ## 🙌 Acknowledgements
-Inspired by the need for mask compliance during the COVID-19 pandemic. Built for educational purposes using simple ML techniques.
+
+* [OpenCV](https://opencv.org/)
+* [TensorFlow](https://www.tensorflow.org/)
+* [Kaggle Dataset: Face Mask Detection](https://www.kaggle.com/datasets/omkargurav/face-mask-dataset)
